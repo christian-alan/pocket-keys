@@ -1,0 +1,309 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  --font-lcd: 'VT323', ui-monospace, monospace;
+  --ease-pop: cubic-bezier(0.3, 1.3, 0.5, 1);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ───────────── Tokens (light, then dark) ───────────── */
+
+.stage {
+  --bg: #f4f3f1;
+  --ink: #2a2622;
+  --hint: #8a847c;
+
+  --chassis: #b7aea1;
+  --chassis-shadow: inset 0 2px 1px rgba(255, 255, 255, 0.45), inset 0 -5px 12px rgba(70, 60, 48, 0.22),
+    0 5px 0 #9d9487, 0 22px 40px rgba(60, 50, 40, 0.22);
+  --grain: 0.22;
+
+  --tray: #aca396;
+  --tray-shadow: inset 0 2px 5px rgba(60, 50, 40, 0.35), 0 1px 0 rgba(255, 255, 255, 0.4);
+  --pad: #2a2826;
+  --pad-hit: #3b3835;
+
+  --lcd-frame: #8f8678;
+  --lcd-frame-shadow: inset 0 3px 6px rgba(40, 32, 24, 0.45), 0 1px 0 rgba(255, 255, 255, 0.45);
+  --lcd: #8c9583;
+  --lcd-shadow: inset 0 2px 8px rgba(30, 40, 25, 0.35);
+  --lcd-ink: #20251d;
+  --lcd-glow: none;
+
+  --knob-well: #141312;
+  --knob-well-shadow: 0 3px 6px rgba(40, 30, 20, 0.35), 0 1px 0 rgba(255, 255, 255, 0.35);
+  --knob: radial-gradient(circle at 38% 30%, #3e3b38 0%, #262422 55%, #1c1b19 100%);
+  --knob-accent: radial-gradient(circle at 38% 30%, #b5602f 0%, #8e451f 60%, #763818 100%);
+  --knob-dot: #8b857c;
+  --knob-accent-dot: #e39a63;
+
+  --led-off: #7e7466;
+  --power: #d5cdc0;
+  --power-up: inset 0 0 0 2px #3a352f, inset 0 3px 0 rgba(255, 255, 255, 0.7), 0 3px 0 #2a2622;
+  --power-down: inset 0 0 0 2px #3a352f, inset 0 3px 5px rgba(0, 0, 0, 0.25), 0 1px 0 #2a2622;
+
+  --bay: #141210;
+  --bay-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.35);
+  --fn-tile: #25221f;
+  --fn-cap: radial-gradient(circle at 40% 30%, #3a3632 0%, #24211e 70%);
+  --fn-ink: #ede6d8;
+  --fn-label: #9c948a;
+  --grille-hole: #0d0c0b;
+
+  --amber: #ffb648;
+  --amber-glow: 0 0 4px #ffc874, 0 0 10px 2px rgba(255, 170, 60, 0.6);
+
+  background: var(--bg);
+  color: var(--ink);
+  transition: background 0.4s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  .stage {
+    --bg: #121110;
+    --ink: #ece7df;
+    --hint: #8c867e;
+    --chassis: #3a3732;
+    --chassis-shadow: inset 0 2px 1px rgba(255, 255, 255, 0.1), inset 0 -5px 12px rgba(0, 0, 0, 0.35), 0 5px 0 #24221f,
+      0 22px 40px rgba(0, 0, 0, 0.55);
+    --grain: 0.35;
+    --tray: #2f2c28;
+    --tray-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.55), 0 1px 0 rgba(255, 255, 255, 0.06);
+    --pad: #191816;
+    --pad-hit: #2a2825;
+    --lcd-frame: #25221f;
+    --lcd-frame-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.06);
+    --lcd: #1f2a1e;
+    --lcd-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+    --lcd-ink: #b9e39a;
+    --lcd-glow: 0 0 6px rgba(160, 230, 120, 0.45);
+    --knob-well: #0b0a09;
+    --knob-well-shadow: 0 3px 6px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.06);
+    --knob: radial-gradient(circle at 38% 30%, #34312e 0%, #1e1c1a 60%, #141312 100%);
+    --knob-accent: radial-gradient(circle at 38% 30%, #c76a35 0%, #9b4c22 60%, #803d1a 100%);
+    --led-off: #4a443d;
+    --power: #4a4640;
+    --power-up: inset 0 0 0 2px #151412, inset 0 3px 0 rgba(255, 255, 255, 0.12), 0 3px 0 #0e0d0c;
+    --power-down: inset 0 0 0 2px #151412, inset 0 3px 5px rgba(0, 0, 0, 0.4), 0 1px 0 #0e0d0c;
+    --bay: #0a0908;
+    --bay-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.7), 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+}
+
+/* ───────────── Body ───────────── */
+
+.chassis {
+  background: var(--chassis);
+  box-shadow: var(--chassis-shadow);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+.grain {
+  opacity: var(--grain);
+  mix-blend-mode: multiply;
+}
+
+.pk-focus {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.pk-focus:focus-visible {
+  outline: 2px solid #e0702e;
+  outline-offset: 2px;
+}
+
+/* ───────────── Pads ───────────── */
+
+.tray {
+  background: var(--tray);
+  box-shadow: var(--tray-shadow);
+}
+.pad {
+  background: var(--pad);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -3px 6px rgba(0, 0, 0, 0.35), 0 4px 0 #0e0d0c,
+    0 6px 6px rgba(0, 0, 0, 0.3);
+}
+.pad[data-down='true'] {
+  background: var(--pad-hit);
+  transform: translateY(3px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), inset 0 -1px 4px rgba(0, 0, 0, 0.4), 0 1px 0 #0e0d0c,
+    0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ───────────── Display ───────────── */
+
+.lcd-frame {
+  background: var(--lcd-frame);
+  box-shadow: var(--lcd-frame-shadow);
+}
+.lcd {
+  background: var(--lcd);
+  box-shadow: var(--lcd-shadow);
+  color: var(--lcd-ink);
+  text-shadow: var(--lcd-glow);
+}
+
+/* ───────────── Knobs, light, power ───────────── */
+
+.knob-well {
+  background: var(--knob-well);
+  box-shadow: var(--knob-well-shadow);
+}
+.knob-cap {
+  background: var(--knob);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.18), inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+}
+.knob-cap[data-accent='true'] {
+  background: var(--knob-accent);
+}
+.knob-dot {
+  background: var(--knob-dot);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18);
+}
+.knob-cap[data-accent='true'] .knob-dot {
+  background: var(--knob-accent-dot);
+}
+
+.led {
+  transition: background 90ms ease, box-shadow 90ms ease;
+}
+.led[data-state='off'] {
+  background: var(--led-off);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+.led[data-state='on'] {
+  background: #ffc93c;
+  box-shadow: 0 0 4px rgba(255, 201, 60, 0.9), 0 0 10px 2px rgba(255, 190, 60, 0.45);
+}
+.led[data-state='hot'] {
+  background: #ffe9a6;
+  box-shadow: 0 0 4px #ffe9a6, 0 0 14px 4px rgba(255, 190, 60, 0.75);
+}
+
+.power {
+  background: var(--power);
+  box-shadow: var(--power-up);
+  transition: transform 80ms ease, box-shadow 80ms ease, background 0.2s ease;
+}
+.power[data-on='true'] {
+  transform: translateY(2px);
+  box-shadow: var(--power-down);
+}
+
+/* ───────────── Keyboard ───────────── */
+
+.bay {
+  background: var(--bay);
+  box-shadow: var(--bay-shadow);
+}
+
+.key-tile {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), inset 0 -2px 0 rgba(0, 0, 0, 0.12);
+}
+.key-name {
+  color: rgba(240, 232, 218, 0.72);
+}
+.key-tile[data-light='true'] .key-name {
+  color: rgba(42, 38, 34, 0.7);
+}
+
+.key-cap {
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 3px 0 rgba(0, 0, 0, 0.4), 0 6px 7px rgba(0, 0, 0, 0.28);
+}
+.key-tile[data-light='true'] .key-cap {
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.7), 0 3px 0 rgba(0, 0, 0, 0.18), 0 6px 7px rgba(0, 0, 0, 0.28);
+}
+.key-cap[data-down='true'],
+.key-tile[data-light='true'] .key-cap[data-down='true'] {
+  transform: translateY(2px) scale(0.97);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25), 0 1px 0 rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.key-led {
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.3);
+  transition: background 80ms ease, box-shadow 80ms ease;
+}
+.key-tile[data-light='true'] .key-led {
+  background: rgba(60, 45, 30, 0.22);
+}
+.key-led[data-lit='true'],
+.key-tile[data-light='true'] .key-led[data-lit='true'] {
+  background: var(--amber);
+  box-shadow: var(--amber-glow);
+}
+
+/* ───────────── Function row ───────────── */
+
+.fn-tile {
+  background: var(--fn-tile);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.fn-cap {
+  background: var(--fn-cap);
+  color: var(--fn-ink);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.16), 0 3px 0 #0a0908, 0 5px 5px rgba(0, 0, 0, 0.35);
+}
+.fn-cap[data-down='true'] {
+  transform: translateY(2px);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.12), 0 1px 0 #0a0908;
+}
+
+.dot {
+  background: rgba(255, 255, 255, 0.12);
+  transition: background 120ms ease, box-shadow 120ms ease;
+}
+.fn-tile > .dot {
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.4);
+}
+.dot[data-lit='true'],
+.fn-tile > .dot[data-lit='true'] {
+  background: var(--amber);
+  box-shadow: var(--amber-glow);
+}
+
+.grille {
+  background-color: var(--fn-tile);
+  background-image: radial-gradient(circle, var(--grille-hole) 1.6px, transparent 2.1px);
+  background-size: 9px 9px;
+  background-position: 3px 3px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* ───────────── Layout scale ───────────── */
+
+.device-scale {
+  zoom: 1;
+}
+@media (max-width: 960px) {
+  .device-scale { zoom: 0.82; }
+}
+@media (max-width: 780px) {
+  .device-scale { zoom: 0.62; }
+}
+@media (max-width: 600px) {
+  .device-scale { zoom: 0.44; }
+}
+@media (max-width: 420px) {
+  .device-scale { zoom: 0.4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation: none !important;
+  }
+}
